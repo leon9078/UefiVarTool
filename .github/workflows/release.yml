@@ -33,7 +33,7 @@ jobs:
     steps:
     - id: download
       name: "Download Artifacts"
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: ${{ github.event.repository.name }}
 
@@ -41,20 +41,7 @@ jobs:
       run: ls -1R ${{ steps.download.outputs.download-path }}
 
     - name: "Create Archive"
-      run: zip -9 -r UVT.zip ./*
-
-    - name: "Create Archive Comment"
-      run: |
-        cat >UVT.zip.txt <<EOF
-        @ (zip file comment below this line)
-                   -|-
-          |   ||   /|   UEFI Variable Tool (UVT)
-          |   ||  / |   ${{ github.event.release.tag_name }}-${{ github.event.release.prerelease && 'Preview' || 'Release' }} * $(date -u +"%Y-%m-%d %H:%M") UTC
-          \`---'\`-'  \`-  https://github.com/GeographicCone/UefiVarTool
-        EOF
-
-    - name: "Add Comment to Archive"
-      run: zipnote -b . -w UVT.zip < UVT.zip.txt
+      run: zip -9 UVT.zip uvt.efi
 
     - name: "Upload UVT Assets"
       uses: actions/upload-release-asset@v1

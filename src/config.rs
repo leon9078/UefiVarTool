@@ -10,12 +10,6 @@
 pub(crate) mod locale_en;
 pub(crate) use locale_en as locale;  // Interface messages in English
 
-// Application metadata
-pub const APP_NAME:    Option<&str> = option_env!("CARGO_PKG_NAME");
-pub const APP_TITLE:   Option<&str> = option_env!("CARGO_PKG_DESCRIPTION");
-pub const APP_VERSION: Option<&str> = option_env!("CARGO_PKG_VERSION");
-pub const BUILD_TYPE:  Option<&str> = option_env!("BUILD_TYPE");
-
 // Character definitions
 pub const CHAR_ARG_ASS:       char = '=';         // Argument assignment operator
 pub const CHAR_ARG_BKT_L:     char = '(';         // Opening bracket for optional variable identifier or size

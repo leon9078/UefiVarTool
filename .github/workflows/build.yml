@@ -75,7 +75,7 @@ jobs:
       run: BUILD_TYPE=${{ inputs.version_word }} cargo build --profile ${{ matrix.profile }} --verbose
 
     - name: "Upload UVT"
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         if-no-files-found: error
         name: ${{ github.event.repository.name }}
