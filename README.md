@@ -282,7 +282,7 @@ The untransformed end result would look like this:
 CheckBox Prompt: "Quiet Boot", Help: "Enables or disables Quiet Boot option", QuestionFlags: 0x0, QuestionId: 0x106E, VarStoreId: 0xF013, VarOffset: 0x40, Flags: 0x0, Default: Disabled, MfgDefault: Disabled
   Default DefaultId: 0x0 Value: 1
   Default DefaultId: 0x1 Value: 1
-End 
+End
 ````
 </details>
 

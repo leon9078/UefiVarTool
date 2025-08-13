@@ -7,7 +7,7 @@
 # Builds the application with the specified version data
 
 name: "UVT Build"
-run-name: "UEFI Variable Tool (UVT) Build by ${{ github.actor }}"
+run-name: "UEFI Variable Tool (UVT) Build"
 
 on:
   workflow_call:
@@ -39,7 +39,7 @@ on:
         required: true
         type: choice
 
-env: 
+env:
   CARGO_BUILD_TARGET: x86_64-unknown-uefi
   CARGO_TERM_COLOR: always
   CARGO_TOML: Cargo.toml
@@ -75,7 +75,7 @@ jobs:
       run: BUILD_TYPE=${{ inputs.version_word }} cargo build --profile ${{ matrix.profile }} --verbose
 
     - name: "Upload UVT"
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         if-no-files-found: error
         name: ${{ github.event.repository.name }}

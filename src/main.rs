@@ -40,15 +40,6 @@ fn main(_handle: Handle, mut system_table: SystemTable<Boot>) -> Status {
     uefi_services::init(&mut system_table)
         .expect(msg::ERR_UEFI_INIT);
 
-    // Print name and version header, including
-    // firmware vendor and version, and UEFI revision
-    println!("# {} ({}) {} {}-{} @ {} {}.{:02} UEFI {}", 
-        config::APP_TITLE.unwrap_or_else(|| msg::APP_TITLE), config::APP_NAME.unwrap_or_else(|| msg::APP_NAME),
-        msg::VERSION, config::APP_VERSION.unwrap_or_else(|| msg::VERSION_UNKNOWN), 
-        config::BUILD_TYPE.unwrap_or_else(|| msg::BUILD_TYPE), system_table.firmware_vendor(),
-        system_table.firmware_revision() >> 16, system_table.firmware_revision() & 0xFFFFu32,
-        system_table.uefi_revision());
-
     // Set the default exit status
     let mut status = Status::SUCCESS;
 

@@ -7,7 +7,7 @@
 # Triggers a build and uploads artifacts as release assets
 
 name: "UVT Release"
-run-name: "UEFI Variable Tool (UVT) Release by ${{ github.actor }}"
+run-name: "UEFI Variable Tool (UVT) Release"
 
 on:
   release:
@@ -33,35 +33,21 @@ jobs:
     steps:
     - id: download
       name: "Download Artifacts"
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: ${{ github.event.repository.name }}
 
-    - name: 'List Artifacts'
+    - name: "List Artifacts"
       run: ls -1R ${{ steps.download.outputs.download-path }}
 
-    - name: "Create Archive"
-      run: zip -9 -r UVT.zip ./*
-
-    - name: "Create Archive Comment"
+    - name: "Create Release body"
       run: |
-        cat >UVT.zip.txt <<EOF
-        @ (zip file comment below this line)
-                   -|-
-          |   ||   /|   UEFI Variable Tool (UVT)
-          |   ||  / |   ${{ github.event.release.tag_name }}-${{ github.event.release.prerelease && 'Preview' || 'Release' }} * $(date -u +"%Y-%m-%d %H:%M") UTC
-          \`---'\`-'  \`-  https://github.com/GeographicCone/UefiVarTool
-        EOF
+        printf "**v%s**\n\n" ${GITHUB_REF/refs\/tags\//} > body.txt
+        printf "* %s\n" "Remove header with application version, firmware vendor, firmware version, UEFI revision number. Replace \"Already\" with \"Writing skipped\"" >> body.txt
 
-    - name: "Add Comment to Archive"
-      run: zipnote -b . -w UVT.zip < UVT.zip.txt
-
-    - name: "Upload UVT Assets"
-      uses: actions/upload-release-asset@v1
+    - name: "Upload to Release"
+      uses: softprops/action-gh-release@v2
       with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./UVT.zip
-        asset_name: UefiVarTool-${{ github.event.release.tag_name }}-${{ github.event.release.prerelease && 'Preview' || 'Release' }}.zip
-        asset_content_type: application/zip
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        body_path: ./body.txt
+        files: ./uvt.efi

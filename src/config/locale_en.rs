@@ -12,8 +12,6 @@
 
 // Application metadata defaults
 pub const APP_NAME: &str = "UVT";
-pub const APP_TITLE: &str = "UEFI Variable Tool";
-pub const BUILD_TYPE: &str = "Manual";
 
 // Error message prefixes and suffixes
 pub const ERR_PREFIX_ARG: &str = "Argument error";
@@ -66,11 +64,7 @@ pub const ERR_UEFI_VAR_SIZE: [&'static str; 3] = ["Variable size", "less than of
 pub const ERR_UEFI_VAR_SIZE_GET: &str = "Failed to get variable size";
 
 // Operations
-pub const OP_SKIPPED: &str = " # Already";
-
-// Version prompt in application header
-pub const VERSION: &str = "Version";
-pub const VERSION_UNKNOWN: &str = "Unknown";
+pub const OP_SKIPPED: &str = " # Writing skipped";
 
 // Usage information
 pub const USAGE: [&'static str; 4] = ["Usage: ", "[.efi] [<Options>] <Op1> [<Op2> [... [<OpN>]]

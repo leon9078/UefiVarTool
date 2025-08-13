@@ -36,7 +36,7 @@ pub fn exit(system_table: &SystemTable<Boot>, status: Status) {
         // Call boot services to exit the application
         BootServices::exit(system_table.boot_services(),
             system_table.boot_services().image_handle(),
-            status, 0, null_mut()); 
+            status, 0, null_mut());
 
     }
 
@@ -166,7 +166,7 @@ pub fn read_stream(input: &mut Input) -> CString16 {
         if let Key::Printable(c) = key {
 
             // If not ignored
-            if !is_ignored(c) { 
+            if !is_ignored(c) {
 
                 // Add to data
                 data.push(c)
